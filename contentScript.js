@@ -2,6 +2,27 @@ function saveToClipboard(text) {
   return navigator.clipboard.writeText(text);
 }
 
+
+chrome.runtime.onConnect.addListener(function(port) {
+  port.onMessage.addListener(function(msg) {
+    console.log("Received message", msg);
+
+    switch (msg.type) {
+      case 'copy-to-clipboard': {
+        saveToClipboard(msg.text)
+          .then(() => port.postMessage("Done: " + msg.text)); 
+        break;
+      }
+      // case 'view-clipboard': 
+      //   viewClipboard()
+      //     .then(value => port.postMessage(value)); 
+      //   break;
+    }
+  });
+});
+
+// next time:
+
 // DOMException: Document is not focused
 // function viewClipboard() {
 //   console.log("Viewing clipboard")
@@ -15,20 +36,3 @@ function saveToClipboard(text) {
 //     else return Promise.resolve("[Require clipboard-read permission]");
 //   });
 // }
-
-chrome.runtime.onConnect.addListener(function(port) {
-  port.onMessage.addListener(function(msg) {
-    console.log("Received message", msg);
-
-    switch (msg.type) {
-      case 'copy-to-clipboard': 
-        saveToClipboard(msg.text)
-          .then(() => port.postMessage("Done: " + msg.text)); 
-        break;
-      // case 'view-clipboard': 
-      //   viewClipboard()
-      //     .then(value => port.postMessage(value)); 
-      //   break;
-    }
-  });
-});

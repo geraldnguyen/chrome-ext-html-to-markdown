@@ -1,7 +1,5 @@
-function copyToClipboard(tab, text) {
-  console.log("Copying", text, "to clipboard");
-
-  chrome.scripting.executeScript(
+function sendCommandToTab(tab, command, responseCallback) {
+  return chrome.scripting.executeScript(
     {
       target: { tabId: tab.id },
       files: ['contentScript.js'],
@@ -9,21 +7,26 @@ function copyToClipboard(tab, text) {
     function() {
       var port = chrome.tabs.connect(tab.id, {name: "service-worker"});
 
-      port.postMessage({type: 'copy-to-clipboard', text});
-      port.onMessage.addListener(function(response) {
-        console.log(response);
-      });
+      port.postMessage(command);
+      port.onMessage.addListener(responseCallback);
     }
-    // () => chrome.tabs.sendMessage(tab.id, {type: 'copy-to-clipboard', text}, console.log)
   );  
+}
+
+function copyToClipboard(tab, text) {
+  console.log("Copying", text, "to clipboard");
+
+  sendCommandToTab(tab, {type: 'copy-to-clipboard', text}, function(response) {
+    console.log(response);
+  });
 }
 
 function linkToMarkdown(text, url) {
   return `[${text}](${url})`;
 }
 
-
 const copyLinkCommand = 'html-to-markdown-copy-link';
+const copyImageCommand = 'html-to-markdown-copy-image';
 
 const contextMenus = [
   {
@@ -32,16 +35,30 @@ const contextMenus = [
     type: 'normal',
     contexts: ['selection'],
   },
+  {
+    id: copyImageCommand,
+    title: "Convert image tag to markdown and copy",
+    type: 'normal',
+    contexts: ['image'],
+  },
 ];
 
 function handleContextMenuClick(selectionInfo, tab) {
-  const { menuItemId, selectionText, linkUrl } = selectionInfo;
+  const { menuItemId } = selectionInfo;
 
   switch (menuItemId) {
-    case copyLinkCommand: 
+    case copyLinkCommand: {
+      const { selectionText, linkUrl } = selectionInfo;
       const md = linkUrl ? linkToMarkdown(selectionText, linkUrl) : selectionText;
       copyToClipboard(tab, md); 
       break;
+    }
+    case copyImageCommand: {
+      const { srcUrl } = selectionInfo;
+      const md = `![](${srcUrl})`;
+      copyToClipboard(tab, md); 
+      break;
+    }
   }
 }
 
