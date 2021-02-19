@@ -13,6 +13,18 @@ chrome.runtime.onConnect.addListener(function(port) {
           .then(() => port.postMessage("Done: " + msg.text)); 
         break;
       }
+      case 'copy-selection': {
+        console.log('execute command copy')
+        var turndownService = new TurndownService();
+
+        document.execCommand('copy');
+        navigator.clipboard.read()
+          .then(items => items[0])
+          .then(item => item.getType('text/html'))
+          .then(blob => blob.text())
+          .then(html => turndownService.turndown(html))
+          .then(markdown => saveToClipboard(markdown));
+      }
       // case 'view-clipboard': 
       //   viewClipboard()
       //     .then(value => port.postMessage(value)); 

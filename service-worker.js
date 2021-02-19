@@ -21,25 +21,38 @@ function copyToClipboard(tab, text) {
   });
 }
 
+function copySelection(tab) {
+  sendCommandToTab(tab, { type: 'copy-selection' }, function(response) {
+    console.log(response);
+  });
+}
+
 function linkToMarkdown(text, url) {
   return `[${text}](${url})`;
 }
 
 const copyLinkCommand = 'html-to-markdown-copy-link';
 const copyImageCommand = 'html-to-markdown-copy-image';
+const copySelectionCommand = 'html-to-markdown-copy-selection';
 
 const contextMenus = [
   {
     id: copyLinkCommand,
     title: "Convert link to markdown and copy",
     type: 'normal',
-    contexts: ['selection'],
+    contexts: ['link'],
   },
   {
     id: copyImageCommand,
     title: "Convert image tag to markdown and copy",
     type: 'normal',
     contexts: ['image'],
+  },
+  {
+    id: copySelectionCommand,
+    title: "Convert selection to markdown and copy",
+    type: 'normal',
+    contexts: ['selection'],
   },
 ];
 
@@ -57,6 +70,18 @@ function handleContextMenuClick(selectionInfo, tab) {
       const { srcUrl } = selectionInfo;
       const md = `![](${srcUrl})`;
       copyToClipboard(tab, md); 
+      break;
+    }
+    case copySelectionCommand: {
+      chrome.scripting.executeScript(
+        {
+          target: { tabId: tab.id },
+          files: ['turndown.js'],
+        },
+        function() {
+          copySelection(tab);
+        }
+      );
       break;
     }
   }
