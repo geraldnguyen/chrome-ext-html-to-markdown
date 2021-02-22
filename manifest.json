@@ -15,11 +15,11 @@
   },
   
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_title": "Translate a selected HTML text to equivalent markdown format"
   },
 
   "permissions": [
-    "storage", 
     "activeTab", 
     "scripting",
     "clipboardRead", "clipboardWrite",
