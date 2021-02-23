@@ -1,5 +1,9 @@
 # HTML to Markdown Chrome Extension
 
+https://chrome.google.com/webstore/detail/html-to-markdown/kgfecdionnddbhjfeanngjbpnnglnpho
+
+![](/screenshots/promotional-image-small.png)
+
 ## Convert Link to Markdown and Copy
 
 Right click on a link and select ![Convert Link to Markdown and Copy](images/context-menu-copy-link.png) to convert the selected link to its markdown equivalent (e.g. `[Link Text](link-url)`) and store in clipboard
