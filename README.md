@@ -14,11 +14,16 @@ Right click on your selection and select ![Convert Selection to Markdown and Cop
 
 Note: if you click on a link or image in your selection, the "Convert Selection..." option may be grouped with "Convert Link..." and/or "Convert Image..." in chrome's context menu ![Group context menu](images/context-menu-copy-selection-grouped.png)
 
-## Note
+**Note**
 
 Chrome may prompt you to grant clipboard permission 
 
 ![Chrome clipboard permission prompt](images/chrome-permission-prompt.png)
+
+## HTML to Markdown Text Area (new in v2)
+
+## Configure Options (new in v2)
+
 
 ## Acknowledgement
 

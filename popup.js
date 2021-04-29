@@ -1,3 +1,11 @@
+var turndownService = new TurndownService(); 
+
+document.getElementById("htmlTA").onchange = function(e) {
+  const markdown = turndownService.turndown(e.target.value);
+  document.getElementById("markdownTA").value = markdown;
+}
+
+
 // const message = { type: 'view-clipboard' };
 
 // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {

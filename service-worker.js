@@ -76,7 +76,7 @@ function handleContextMenuClick(selectionInfo, tab) {
       chrome.scripting.executeScript(
         {
           target: { tabId: tab.id },
-          files: ['turndown.js'],
+          files: ['lib/turndown.js'],
         },
         function() {
           copySelection(tab);

@@ -1,35 +1,91 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <script src="lib/bootstrap.bundle.min.js"></script>
+    <script src="lib/turndown.js"></script>
+    <style>
+      body {
+        font-size: 14px;
+        padding: 1rem;
+        min-width: 50rem;
+      }
+      textarea {
+        width: 100%;
+        min-height: 10rem;
+      }
+      h1 {
+        margin-bottom: 2rem;
+      }
+
+      h2 {
+        margin: 1.5rem 0 1rem 0;
+      }
+
+      h3 {
+        margin: 1rem 0;
+      }
+    </style>
+
   </head>
   <body>
     <h1>HTML to Markdown</h1>
+
+    <!-- Menu -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="convert-tab" data-bs-toggle="tab" data-bs-target="#convert" type="button" role="tab" aria-controls="convert" aria-selected="true">Convert HTML to Markdown</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link " id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button" role="tab" aria-controls="help" aria-selected="false">Help</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <!-- Convert -->
+      <div class="tab-pane fade show active" id="convert" role="tabpanel" aria-labelledby="convert-tab">
+        <p>Copy your HTML to the text area below</p>
+
+        <textarea id="htmlTA" placeholder="HTML"></textarea>
+        
+        <textarea id="markdownTA" readonly>Markdown</textarea>
+
+      </div>
+
+      <!-- Help Content -->
+      <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
+        <h2>Convert Link to Markdown and Copy</h2>
+        Right click on a link and select <img src="images/context-menu-copy-link.png" alt="'Convert Link to Markdown and Copy' context menu" /> to convert the selected link to its markdown equivalent (e.g. <code>[Link Text](link-url)</code>) and store in clipboard
+    
+        <h2>Convert Image Tag to Markdown and Copy</h2>
+        Right click on an image and select <img src="images/context-menu-copy-image.png" alt="'Convert Image to Markdown and Copy' context menu" /> to convert the selected image to its markdown equivalent (e.g. <code>![](image-url)</code>) and store in clipboard
+    
+        <h2>Convert Selection to Markdown and Copy</h2>
+    
+        Right click on your selection and select <img alt='Convert Selection to Markdown and Copy' src='images/context-menu-copy-selection.png' /> to store converted markdown in clipboard
+    
+        Note: if you click on a link or image in your selection, the "Convert Selection..." option may be grouped with "Convert Link..." and/or "Convert Image..." in chrome's context menu <img alt='Group context menu' src='images/context-menu-copy-selection-grouped.png' />
+    
+        <h3>Note</h3>
+    
+        Chrome may prompt you to grant clipboard permission 
+    
+        <img alt='Chrome clipboard permission prompt' src='images/chrome-permission-prompt.png' />
+    
+        <h2>About</h2>
+    
+        <a href="https://github.com/geraldnguyen/chrome-ext-html-to-markdown">https://github.com/geraldnguyen/chrome-ext-html-to-markdown</a>
+
+      </div>
+      
+    </div>
 
     <!-- <h2>Clipboard Content</h2> -->
 
     <!-- <code id='clipboard-content'></code> -->
 
-    <h2>Convert Link to Markdown and Copy</h2>
-    Right click on a link and select <img src="images/context-menu-copy-link.png" alt="'Convert Link to Markdown and Copy' context menu" /> to convert the selected link to its markdown equivalent (e.g. <code>[Link Text](link-url)</code>) and store in clipboard
-
-    <h2>Convert Image Tag to Markdown and Copy</h2>
-    Right click on an image and select <img src="images/context-menu-copy-image.png" alt="'Convert Image to Markdown and Copy' context menu" /> to convert the selected image to its markdown equivalent (e.g. <code>![](image-url)</code>) and store in clipboard
-
-    <h2>Convert Selection to Markdown and Copy</h2>
-
-    Right click on your selection and select <img alt='Convert Selection to Markdown and Copy' src='images/context-menu-copy-selection.png' /> to store converted markdown in clipboard
-
-    Note: if you click on a link or image in your selection, the "Convert Selection..." option may be grouped with "Convert Link..." and/or "Convert Image..." in chrome's context menu <img alt='Group context menu' src='images/context-menu-copy-selection-grouped.png' />
-
-    <h2>Note</h2>
-
-    Chrome may prompt you to grant clipboard permission 
-
-    <img alt='Chrome clipboard permission prompt' src='images/chrome-permission-prompt.png' />
-
-    <h2>About</h2>
-
-    <a href="https://github.com/geraldnguyen/chrome-ext-html-to-markdown">https://github.com/geraldnguyen/chrome-ext-html-to-markdown</a>
+    
 
     <script src="popup.js"></script>
   </body>
