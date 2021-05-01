@@ -25,6 +25,10 @@
       h3 {
         margin: 1rem 0;
       }
+
+      #convertBtn {
+        margin: 1rem 0;
+      }
     </style>
 
   </head>
@@ -38,7 +42,11 @@
       </li>
 
       <li class="nav-item" role="presentation">
-        <button class="nav-link " id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button" role="tab" aria-controls="help" aria-selected="false">Help</button>
+        <button class="nav-link" id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button" role="tab" aria-controls="help" aria-selected="false">Help</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="options-tab" data-bs-toggle="tab" data-bs-target="#options" type="button" role="tab" aria-controls="help" aria-selected="false">Options</button>
       </li>
     </ul>
 
@@ -48,6 +56,8 @@
         <p>Copy your HTML to the text area below</p>
 
         <textarea id="htmlTA" placeholder="HTML"></textarea>
+
+        <button type="button" class="btn btn-primary" id="convertBtn">Convert</button>
         
         <textarea id="markdownTA" readonly>Markdown</textarea>
 
@@ -78,6 +88,107 @@
         <a href="https://github.com/geraldnguyen/chrome-ext-html-to-markdown">https://github.com/geraldnguyen/chrome-ext-html-to-markdown</a>
 
       </div>
+
+      <!-- Options -->
+      <div class="tab-pane fade" id="options" role="tabpanel" aria-labelledby="options-tab">
+        <p>
+          <span id="saveStatus" style="color: brown;"></span>
+        </p>
+        
+
+        <div class="row mb-3">
+          <label for="headingStyle" class="col-sm-2 col-form-label">Heading Style</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="headingStyle">
+              <option value="setext">===========</option>
+              <option value="atx">### </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="hr" class="col-sm-2 col-form-label">Horizontal Rule</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="hr">
+              <option value="*">***</option>
+              <option value="-">---</option>
+              <option value="_">___</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="bulletListMarker" class="col-sm-2 col-form-label">Bullet</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="bulletListMarker">
+              <option value="*">*</option>
+              <option value="+">+</option>
+              <option value="-">-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="codeBlockStyle" class="col-sm-2 col-form-label">Code Block Style</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="codeBlockStyle">
+              <option value="indented">indented</option>
+              <option value="fenced">Fenced</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="fence" class="col-sm-2 col-form-label">Fence</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="fence">
+              <option value="```">```</option>
+              <option value="~~~">~~~</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="emDelimiter" class="col-sm-2 col-form-label">EM delimiter</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="emDelimiter">
+              <option value="_">_</option>
+              <option value="*">*</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="strongDelimiter" class="col-sm-2 col-form-label">STRONG delimiter</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="strongDelimiter">
+              <option value="**">**</option>
+              <option value="__">__</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="linkStyle" class="col-sm-2 col-form-label">Link Style</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="linkStyle">
+              <option value="inlined">inlined</option>
+              <option value="referenced">referenced</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="linkReferenceStyle" class="col-sm-2 col-form-label">Link Reference Style</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="linkReferenceStyle">
+              <option value="full">full</option>
+              <option value="collapsed">collapsed</option>
+              <option value="shortcut">shortcut</option>
+            </select>
+          </div>
+        </div>
+      </div>
       
     </div>
 
@@ -86,7 +197,7 @@
     <!-- <code id='clipboard-content'></code> -->
 
     
-
+    <script src="options.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

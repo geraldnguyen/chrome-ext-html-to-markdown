@@ -19,10 +19,13 @@
     "default_title": "Translate a selected HTML text to equivalent markdown format"
   },
 
+  "options_page": "options.html",
+
   "permissions": [
     "activeTab", 
     "scripting",
     "clipboardRead", "clipboardWrite",
-    "contextMenus"
+    "contextMenus",
+    "storage"
   ]
 }

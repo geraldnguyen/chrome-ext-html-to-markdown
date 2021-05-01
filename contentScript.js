@@ -2,6 +2,38 @@ function saveToClipboard(text) {
   return navigator.clipboard.writeText(text);
 }
 
+const defaultOptions = {
+  headingStyle: 'setext',
+  hr: "***",
+  bulletListMarker: "*",
+  codeBlockStyle: "indented",
+  fence: "```",
+  emDelimiter: "_",
+  strongDelimiter: "**",
+  linkStyle: "inlined",
+  linkReferenceStyle: "full"
+};
+
+function getOptions() {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get(defaultOptions, (items) => {
+      // Pass any observed errors down the promise chain.
+      if (chrome.runtime.lastError) {
+        return reject(chrome.runtime.lastError);
+      }
+      // Pass the data retrieved from storage down the promise chain.
+      return resolve(items);
+    });
+  });
+}
+
+function convertHtmlToMarkdown(value) {
+  return getOptions().then(options => {
+    var turndownService = new TurndownService(options); 
+    return turndownService.turndown(value);
+  });
+}
+
 
 chrome.runtime.onConnect.addListener(function(port) {
   port.onMessage.addListener(function(msg) {
@@ -22,18 +54,12 @@ chrome.runtime.onConnect.addListener(function(port) {
           .then(items => items[0])
           .then(item => item.getType('text/html'))
           .then(blob => blob.text())
-          .then(html => turndownService.turndown(html))
+          .then(html => convertHtmlToMarkdown(html))
           .then(markdown => saveToClipboard(markdown));
       }
-      // case 'view-clipboard': 
-      //   viewClipboard()
-      //     .then(value => port.postMessage(value)); 
-      //   break;
     }
   });
 });
-
-// next time:
 
 // DOMException: Document is not focused
 // function viewClipboard() {
