@@ -22,8 +22,11 @@ Chrome may prompt you to grant clipboard permission
 
 ## HTML to Markdown Text Area (new in v2)
 
+![Converter](images/html-to-markdown-converter.png)
+
 ## Configure Options (new in v2)
 
+![options](images/options.png)
 
 ## Acknowledgement
 
